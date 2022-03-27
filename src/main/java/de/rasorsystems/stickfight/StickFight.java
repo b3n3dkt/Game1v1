@@ -1,0 +1,84 @@
+package de.rasorsystems.stickfight;
+
+import de.rasorsystems.stickfight.commands.SetSpawnCommand;
+import de.rasorsystems.stickfight.commands.SpawnCommand;
+import de.rasorsystems.stickfight.config.Config;
+import de.rasorsystems.stickfight.events.*;
+import de.rasorsystems.stickfight.messages.Messages;
+import de.rasorsystems.stickfight.mysql.MySQL;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class StickFight extends JavaPlugin {
+
+    public static StickFight main;
+    Config config;
+    Messages messages;
+
+    public void onEnable(){
+        Bukkit.getConsoleSender().sendMessage("§8<------------------------------------------------------>");
+        Bukkit.getConsoleSender().sendMessage("§a");
+        Bukkit.getConsoleSender().sendMessage("§a   _____ _   _      _    ______ _       _     _         ");
+        Bukkit.getConsoleSender().sendMessage("§a  / ____| | (_)    | |  |  ____(_)     | |   | |        ");
+        Bukkit.getConsoleSender().sendMessage("§a | (___ | |_ _  ___| | _| |__   _  __ _| |__ | |_       ");
+        Bukkit.getConsoleSender().sendMessage("§a  \\___ \\| __| |/ __| |/ /  __| | |/ _` | '_ \\| __|   ");
+        Bukkit.getConsoleSender().sendMessage("§a  ____) | |_| | (__|   <| |    | | (_| | | | | |_       ");
+        Bukkit.getConsoleSender().sendMessage("§a |_____/ \\__|_|\\___|_|\\_\\_|    |_|\\__, |_| |_|\\__|");
+        Bukkit.getConsoleSender().sendMessage("§a                                   __/ |                ");
+        Bukkit.getConsoleSender().sendMessage("§a                                  |___/           ");
+        Bukkit.getConsoleSender().sendMessage("§a");
+        Bukkit.getConsoleSender().sendMessage("§7Author: §bb3n3dkt");
+        Bukkit.getConsoleSender().sendMessage("§7Publisher: §bRasorSystems");
+        Bukkit.getConsoleSender().sendMessage("§7If you need help with anything you can write us on Discord:");
+        Bukkit.getConsoleSender().sendMessage("§7- §bBenedikt#7121");
+        Bukkit.getConsoleSender().sendMessage("§7- §bGaaehHacked#6791");
+        Bukkit.getConsoleSender().sendMessage("§7- §bdiscord.gg/88x6CHK3qa");
+        Bukkit.getConsoleSender().sendMessage("§a");
+        Bukkit.getConsoleSender().sendMessage("§8<------------------------------------------------------>");
+
+        init();
+        register();
+    }
+
+    public void onDisable(){
+        Bukkit.getConsoleSender().sendMessage("§8<----------------->");
+        Bukkit.getConsoleSender().sendMessage("§cStickFight disabled");
+        Bukkit.getConsoleSender().sendMessage("§8<----------------->");
+    }
+
+    public void register(){
+        getCommand("setspawn").setExecutor(new SetSpawnCommand());
+        getCommand("spawn").setExecutor(new SpawnCommand());
+
+        Bukkit.getPluginManager().registerEvents(new PlayerRespawn(), this);
+        Bukkit.getPluginManager().registerEvents(new UnkownCommand(), this);
+        Bukkit.getPluginManager().registerEvents(new WeatherChange(), this);
+        Bukkit.getPluginManager().registerEvents(new Achievements(), this);
+        Bukkit.getPluginManager().registerEvents(new BlockBreak(), this);
+        Bukkit.getPluginManager().registerEvents(new BlockPlace(), this);
+        Bukkit.getPluginManager().registerEvents(new FoodListener(), this);
+        Bukkit.getPluginManager().registerEvents(new LogIn(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerDeath(), this);
+        Bukkit.getPluginManager().registerEvents(new JoinListener(), this);
+        Bukkit.getPluginManager().registerEvents(new LeaveListener(), this);
+        Bukkit.getPluginManager().registerEvents(new ItemDrop(), this);
+        Bukkit.getPluginManager().registerEvents(new InventoryClick(), this);
+        Bukkit.getPluginManager().registerEvents(new Interact(), this);
+    }
+
+    public void init(){
+        main = this;
+        config = new Config();
+        messages = new Messages();
+
+        if(!config.exist()){
+            config.createNewConfig();
+        }
+        if(!messages.exist()){
+            messages.createNewMessagesConfig();
+        }
+
+        MySQL.connect();
+    }
+
+}

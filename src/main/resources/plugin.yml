@@ -1,0 +1,9 @@
+author: b3n3dkt
+name: StickFight
+version: 1.0.0
+main: de.rasorsystems.stickfight.StickFight
+api-version: 1.8
+
+commands:
+   setspawn:
+   spawn:
