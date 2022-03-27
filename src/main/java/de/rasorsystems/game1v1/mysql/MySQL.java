@@ -22,7 +22,10 @@ public class MySQL {
                 getMySQLConnectionData();
                 long start = System.currentTimeMillis();
                 connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database + "?autoReconnect=true&useUnicode=yes", username, password);
-                Update("CREATE TABLE IF NOT EXISTS Stats(UUID varchar(250), Name varchar(255), Kills VARCHAR(255), Deaths VARCHAR(255), Won VARCHAR(255))");
+                Update("CREATE TABLE IF NOT EXISTS StatsStickFight(UUID varchar(250), Name varchar(255), Kills VARCHAR(255), Deaths VARCHAR(255), Won VARCHAR(255))");
+                Update("CREATE TABLE IF NOT EXISTS StatsSkyWars(UUID varchar(250), Name varchar(255), Kills VARCHAR(255), Deaths VARCHAR(255), Won VARCHAR(255))");
+                Update("CREATE TABLE IF NOT EXISTS StatsBedWars(UUID varchar(250), Name varchar(255), Kills VARCHAR(255), Deaths VARCHAR(255), Won VARCHAR(255))");
+                Update("CREATE TABLE IF NOT EXISTS StatsSurvivalGames(UUID varchar(250), Name varchar(255), Kills VARCHAR(255), Deaths VARCHAR(255), Won VARCHAR(255))");
                 long end = System.currentTimeMillis();
                 Bukkit.getConsoleSender().sendMessage("§aConnection to MySQL server established! (" + host + ":" + port + ")");
                 Bukkit.getConsoleSender().sendMessage("§aConnection took " + ((end - start)) + "ms!");

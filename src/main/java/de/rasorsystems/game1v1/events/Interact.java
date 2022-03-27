@@ -14,7 +14,7 @@ public class Interact implements Listener {
         Player player = event.getPlayer();
         if(player.getInventory().getItemInHand().getType().equals(Material.STICK)){
 
-            Arena.loadSchematic();
+            Arena.loadSchematic("stickfight.schematic");
 
             player.teleport(Arena.getLastLoc());
             player.sendMessage("§aSchematic has been loaded!");

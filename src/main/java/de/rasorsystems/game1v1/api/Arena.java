@@ -37,11 +37,11 @@ public class Arena {
     }
     public static Location getLastLoc() {return lastLoc;}
 
-    public static void loadSchematic(){
+    public static void loadSchematic(String name){
         Location location = getNextLocation();
         setLastLoc(location);
         WorldEditPlugin worldEditPlugin = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit");
-        File schematic = new File("plugins//WorldEdit//schematics//arena.schematic");
+        File schematic = new File("plugins//WorldEdit//schematics//" + name);
         EditSession session = worldEditPlugin.getWorldEdit().getEditSessionFactory().getEditSession(new BukkitWorld(Bukkit.getWorld("world")), 10000);
         try{
             CuboidClipboard clipboard = MCEditSchematicFormat.getFormat(schematic).load(schematic);
