@@ -7,3 +7,6 @@ api-version: 1.8
 commands:
    setspawn:
    spawn:
+   createworld:
+   deleteworld:
+   startgame:

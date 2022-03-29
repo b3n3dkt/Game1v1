@@ -1,7 +1,7 @@
 package de.rasorsystems.game1v1;
 
-import de.rasorsystems.game1v1.commands.SetSpawnCommand;
-import de.rasorsystems.game1v1.commands.SpawnCommand;
+import de.rasorsystems.game1v1.api.WorldLoader;
+import de.rasorsystems.game1v1.commands.*;
 import de.rasorsystems.game1v1.config.Config;
 import de.rasorsystems.game1v1.events.*;
 import de.rasorsystems.game1v1.messages.Messages;
@@ -22,7 +22,6 @@ public class Game1v1 extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage("§a  / ____|                   /_ |    /_ |");
         Bukkit.getConsoleSender().sendMessage("§a | |  __  __ _ _ __ ___   ___| |_   _| |");
         Bukkit.getConsoleSender().sendMessage("§a | | |_ |/ _` | '_ ` _ \\ / _ \\ \\ \\ / / |");
-        Bukkit.getConsoleSender().sendMessage("§a  ____) | |_| | (__|   <| |    | | (_| | | | | |_ ");
         Bukkit.getConsoleSender().sendMessage("§a | |__| | (_| | | | | | |  __/ |\\ V /| |");
         Bukkit.getConsoleSender().sendMessage("§a  \\_____|\\__,_|_| |_| |_|\\___|_| \\_/ |_|");
         Bukkit.getConsoleSender().sendMessage("§a");
@@ -40,6 +39,7 @@ public class Game1v1 extends JavaPlugin {
     }
 
     public void onDisable(){
+        WorldLoader.shutdown();
         Bukkit.getConsoleSender().sendMessage("§8<----------------->");
         Bukkit.getConsoleSender().sendMessage("§cStickFight disabled");
         Bukkit.getConsoleSender().sendMessage("§8<----------------->");
@@ -48,6 +48,9 @@ public class Game1v1 extends JavaPlugin {
     public void register(){
         getCommand("setspawn").setExecutor(new SetSpawnCommand());
         getCommand("spawn").setExecutor(new SpawnCommand());
+        getCommand("createworld").setExecutor(new CreateWorld());
+        getCommand("deleteworld").setExecutor(new DeleteWorld());
+        getCommand("startgame").setExecutor(new StartGame());
 
         Bukkit.getPluginManager().registerEvents(new PlayerRespawn(), this);
         Bukkit.getPluginManager().registerEvents(new UnkownCommand(), this);

@@ -13,8 +13,9 @@ public class PlayerDeath implements Listener {
         Player died = event.getEntity().getKiller();
         MySQL.setDeaths(died, MySQL.getDeaths(died)+1);
         Player killer = event.getEntity().getKiller();
-        MySQL.setKills(killer, MySQL.getKills(killer)+1);
-
+        if(killer != null) {
+            MySQL.setKills(killer, MySQL.getKills(killer) + 1);
+        }
         event.setDeathMessage(null);
     }
 

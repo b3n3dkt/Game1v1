@@ -15,6 +15,7 @@ public class MySQL {
     public static String host;
     public static String port;
     public static Connection connection;
+    private static int loop = 0;
 
     public static void connect(){
         if (!isConnected()) {
@@ -71,12 +72,24 @@ public class MySQL {
     public static boolean isConnected() { return (connection != null); }
 
     public static PreparedStatement getStatement(String sql) {
-        try {
-            return (PreparedStatement) connection.prepareStatement(sql);
-        } catch (SQLException var2) {
-            var2.printStackTrace();
+        if(isConnected()){
+            try {
+                return (PreparedStatement) connection.prepareStatement(sql);
+            } catch (SQLException var2) {
+                var2.printStackTrace();
+            }
+        }else {
+            if(loop <= 5){
+                Bukkit.getConsoleSender().sendMessage("§cMySQL not connected! §aConnecting now...");
+                connect();
+                loop++;
+                getStatement(sql);
+            }else{
+                Bukkit.getConsoleSender().sendMessage("§cCouldnt reconnect to MySQL Database!");
+                loop = 0;
+                return null;
+            }
         }
-
         return null;
     }
 
