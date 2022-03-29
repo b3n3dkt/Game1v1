@@ -36,11 +36,24 @@ public class SchematicLoader {
     public static void setLastLoc(Location lastLocation) { lastLoc = lastLocation; }
     public static Location getLastLoc() {return lastLoc;}
 
-    public static void loadSchematic(String name){
+    public static void loadSetupSchematic(GameModes gameModes, Location location){
+        WorldEditPlugin worldEditPlugin = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit");
+        File schematic = new File("plugins//WorldEdit//schematics//" + gameModes.toString() + ".schematic");
+        EditSession session = worldEditPlugin.getWorldEdit().getEditSessionFactory().getEditSession(new BukkitWorld(location.getWorld()), 10000);
+
+        try{
+            CuboidClipboard clipboard = MCEditSchematicFormat.getFormat(schematic).load(schematic);
+            clipboard.paste(session, new Vector(location.getX(), location.getY(), location.getZ()), false);
+        }catch (MaxChangedBlocksException| DataException| IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadSchematic(GameModes gameModes){
         Location location = getNextLocation();
         setLastLoc(location);
         WorldEditPlugin worldEditPlugin = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit");
-        File schematic = new File("plugins//WorldEdit//schematics//" + name);
+        File schematic = new File("plugins//WorldEdit//schematics//" + gameModes + ".schematic");
         EditSession session = worldEditPlugin.getWorldEdit().getEditSessionFactory().getEditSession(new BukkitWorld(Bukkit.getWorld("world")), 10000);
 
         try{

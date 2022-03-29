@@ -27,6 +27,10 @@ public class Messages {
                                                                          "\n&7you can contact us via &bDiscord&7!" +
                                                                          "\n&7Thank you and have fun!\n");
         this.fileBuilder.setValue("leave.leavemessage", "&8[&c-&] &7%player%");
+        this.fileBuilder.setValue("setup.commandsyntax", "&bStick&fFight &7> &cSyntax: Please use /setup <BedWars:SkyWars:StickFight:SurvivalGames> !");
+        this.fileBuilder.setValue("setup.gamemodenotexist", "&bStick&fFight &7> &cThe gamemode &b%gameMode% &cdoes not exist!");
+        this.fileBuilder.setValue("setup.confirmredosetup", "&bStick&fFight &7> &cYou've already a Setup for that gamemode, if you wish to re do it confirm it with &a/setupconfirm&c. If not just do nothing!");
+        this.fileBuilder.setValue("setup.dosetupfirst", "&bStick&fFight &7> &cYou need to execute the &b/setup &ccommand first!");
         this.fileBuilder.save();
     }
 

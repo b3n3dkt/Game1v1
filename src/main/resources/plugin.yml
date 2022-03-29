@@ -10,3 +10,5 @@ commands:
    createworld:
    deleteworld:
    startgame:
+   setup:
+   setupconfirm:

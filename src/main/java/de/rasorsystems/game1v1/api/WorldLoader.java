@@ -1,18 +1,19 @@
 package de.rasorsystems.game1v1.api;
 
+import de.rasorsystems.game1v1.Game1v1;
 import de.rasorsystems.game1v1.messages.Messages;
-import org.bukkit.Bukkit;
-import org.bukkit.World;
-import org.bukkit.WorldCreator;
-import org.bukkit.WorldType;
+import de.rasorsystems.game1v1.utils.Spawn;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class WorldLoader {
 
     public static ArrayList<String> currentGamesWorlds = new ArrayList<>();
+    public static HashMap<Player, String> setupWorlds = new HashMap<>();
     private static World world;
 
     public static void Test(String name){
@@ -34,7 +35,24 @@ public class WorldLoader {
         Bukkit.getConsoleSender().sendMessage(getGameMode(worldCreator.name()));
     }
 
-    //SkyWars-ögkjdfsgölksdjgölskdjg_vs_fgmndsgjöfsjgsgösdölfg
+    public static void createSetupWorld(Player player, GameModes gameMode){
+        WorldCreator worldCreator = new WorldCreator(gameMode.toString() + "-SetupWorld");
+        worldCreator.type(WorldType.FLAT);
+        worldCreator.generatorSettings("2;0;1;");
+        worldCreator.createWorld();
+        setupWorlds.put(player, worldCreator.name());
+
+        Location startLocation = new Location(Bukkit.getWorld(worldCreator.name()), 0, 80, 0);
+        player.setGameMode(GameMode.CREATIVE);
+        player.teleport(startLocation);
+        Bukkit.getScheduler().runTaskLater(Game1v1.main, new Runnable() {
+            @Override
+            public void run() {
+                SchematicLoader.loadSetupSchematic(gameMode, startLocation);
+            }
+        }, 1*20);
+    }
+
     public static String getPlayer(String world, int player1or2){
         String[] parts1 = world.split("-");
         String players = parts1[1];
@@ -55,11 +73,19 @@ public class WorldLoader {
     }
 
     public static void shutdown(){
+        Spawn spawn = new Spawn();
         for(String currentGame : currentGamesWorlds){
             World world = Bukkit.getWorld(currentGame);
             File filepath = world.getWorldFolder();
             deleteWorld(filepath, world.getName());
             currentGamesWorlds.remove(currentGame);
+        }
+        for(Player player : setupWorlds.keySet()){
+            player.teleport(spawn.getSpawn());
+            World world = Bukkit.getWorld(setupWorlds.get(player));
+            File filepath = world.getWorldFolder();
+            deleteWorld(filepath, world.getName());
+            setupWorlds.remove(player);
         }
     }
 

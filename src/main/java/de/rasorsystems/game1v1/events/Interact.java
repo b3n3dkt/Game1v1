@@ -1,5 +1,6 @@
 package de.rasorsystems.game1v1.events;
 
+import de.rasorsystems.game1v1.api.GameModes;
 import de.rasorsystems.game1v1.api.SchematicLoader;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -14,7 +15,7 @@ public class Interact implements Listener {
         Player player = event.getPlayer();
         if(player.getInventory().getItemInHand().getType().equals(Material.STICK)){
 
-            SchematicLoader.loadSchematic("stickfight.schematic");
+            SchematicLoader.loadSchematic(GameModes.StickFight);
 
             player.teleport(SchematicLoader.getLastLoc());
             player.sendMessage("§aSchematic has been loaded!");

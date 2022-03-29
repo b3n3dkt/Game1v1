@@ -37,8 +37,9 @@ public class JoinListener implements Listener {
                 player.sendMessage("§a");
             }
         }
-
-        player.sendMessage(messages.getMessage("join.welcomemessage"));
+        if(messages.getMessage("join.welcomemessage") != null){
+            player.sendMessage(messages.getMessage("join.welcomemessage"));
+        }
     }
 
 }

@@ -48,6 +48,8 @@ public class Game1v1 extends JavaPlugin {
     public void register(){
         getCommand("setspawn").setExecutor(new SetSpawnCommand());
         getCommand("spawn").setExecutor(new SpawnCommand());
+        getCommand("setup").setExecutor(new SetupCommand());
+        getCommand("setupconfirm").setExecutor(new SetupConfirmCommand());
         getCommand("createworld").setExecutor(new CreateWorld());
         getCommand("deleteworld").setExecutor(new DeleteWorld());
         getCommand("startgame").setExecutor(new StartGame());

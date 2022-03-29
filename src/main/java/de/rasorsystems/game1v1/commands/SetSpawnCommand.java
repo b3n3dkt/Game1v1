@@ -16,7 +16,7 @@ public class SetSpawnCommand implements CommandExecutor {
         messages = new Messages();
         if(sender instanceof Player){
             Player player = (Player) sender;
-            if(player.hasPermission("stickfight.command.setspawn")){
+            if(player.hasPermission("game1v1.command.setspawn")){
                 Spawn spawn = new Spawn();
                 spawn.createSpawn(player.getLocation());
                 player.sendMessage(messages.getMessage("spawn.setspawn"));

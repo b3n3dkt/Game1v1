@@ -17,18 +17,19 @@ public class SpawnCommand implements CommandExecutor {
     public static ArrayList<Player> cooldown = new ArrayList<>();
     Messages messages;
     Config config;
+    Spawn spawn;
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         messages = new Messages();
         config = new Config();
+        spawn = new Spawn();
         if(sender instanceof Player){
             Player player =  (Player) sender;
             if(cooldown.contains(player)){
                 player.sendMessage(messages.getMessage("spawn.cooldown"));
                 return true;
             }
-            Spawn spawn = new Spawn();
             player.teleport(spawn.getSpawn());
             player.sendMessage(messages.getMessage("spawn.teleported"));
             cooldown.add(player);
