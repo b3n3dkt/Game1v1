@@ -15,11 +15,11 @@ import org.bukkit.Location;
 import java.io.File;
 import java.io.IOException;
 
-public class Arena {
+public class SchematicLoader {
 
     public static Location lastLoc;
 
-    public Arena(){
+    public SchematicLoader(){
     }
 
     public static Location getNextLocation(){
@@ -33,8 +33,7 @@ public class Arena {
         return nextLoc;
     }
 
-    public static void setLastLoc(Location lastLocation) { lastLoc = lastLocation;
-    }
+    public static void setLastLoc(Location lastLocation) { lastLoc = lastLocation; }
     public static Location getLastLoc() {return lastLoc;}
 
     public static void loadSchematic(String name){
@@ -43,6 +42,7 @@ public class Arena {
         WorldEditPlugin worldEditPlugin = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit");
         File schematic = new File("plugins//WorldEdit//schematics//" + name);
         EditSession session = worldEditPlugin.getWorldEdit().getEditSessionFactory().getEditSession(new BukkitWorld(Bukkit.getWorld("world")), 10000);
+
         try{
             CuboidClipboard clipboard = MCEditSchematicFormat.getFormat(schematic).load(schematic);
             clipboard.paste(session, new Vector(location.getX(), location.getY(), location.getZ()), false);

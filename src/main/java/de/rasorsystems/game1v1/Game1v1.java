@@ -18,14 +18,13 @@ public class Game1v1 extends JavaPlugin {
     public void onEnable(){
         Bukkit.getConsoleSender().sendMessage("§8<------------------------------------------------------>");
         Bukkit.getConsoleSender().sendMessage("§a");
-        Bukkit.getConsoleSender().sendMessage("§a   _____ _   _      _    ______ _       _     _         ");
-        Bukkit.getConsoleSender().sendMessage("§a  / ____| | (_)    | |  |  ____(_)     | |   | |        ");
-        Bukkit.getConsoleSender().sendMessage("§a | (___ | |_ _  ___| | _| |__   _  __ _| |__ | |_       ");
-        Bukkit.getConsoleSender().sendMessage("§a  \\___ \\| __| |/ __| |/ /  __| | |/ _` | '_ \\| __|   ");
-        Bukkit.getConsoleSender().sendMessage("§a  ____) | |_| | (__|   <| |    | | (_| | | | | |_       ");
-        Bukkit.getConsoleSender().sendMessage("§a |_____/ \\__|_|\\___|_|\\_\\_|    |_|\\__, |_| |_|\\__|");
-        Bukkit.getConsoleSender().sendMessage("§a                                   __/ |                ");
-        Bukkit.getConsoleSender().sendMessage("§a                                  |___/           ");
+        Bukkit.getConsoleSender().sendMessage("§a   _____                     __      __ ");
+        Bukkit.getConsoleSender().sendMessage("§a  / ____|                   /_ |    /_ |");
+        Bukkit.getConsoleSender().sendMessage("§a | |  __  __ _ _ __ ___   ___| |_   _| |");
+        Bukkit.getConsoleSender().sendMessage("§a | | |_ |/ _` | '_ ` _ \\ / _ \\ \\ \\ / / |");
+        Bukkit.getConsoleSender().sendMessage("§a  ____) | |_| | (__|   <| |    | | (_| | | | | |_ ");
+        Bukkit.getConsoleSender().sendMessage("§a | |__| | (_| | | | | | |  __/ |\\ V /| |");
+        Bukkit.getConsoleSender().sendMessage("§a  \\_____|\\__,_|_| |_| |_|\\___|_| \\_/ |_|");
         Bukkit.getConsoleSender().sendMessage("§a");
         Bukkit.getConsoleSender().sendMessage("§7Author: §bb3n3dkt");
         Bukkit.getConsoleSender().sendMessage("§7Publisher: §bRasorSystems");
