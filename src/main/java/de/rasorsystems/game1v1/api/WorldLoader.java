@@ -1,5 +1,6 @@
 package de.rasorsystems.game1v1.api;
 
+import de.rasorsystems.game1v1.messages.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
@@ -11,14 +12,15 @@ import java.util.ArrayList;
 
 public class WorldLoader {
 
-    public static ArrayList<WorldCreator> currentGamesWorlds = new ArrayList<>();
+    public static ArrayList<String> currentGamesWorlds = new ArrayList<>();
+    private static World world;
 
     public static void Test(String name){
         WorldCreator worldCreator = new WorldCreator(name);
         worldCreator.type(WorldType.FLAT);
         worldCreator.generatorSettings("2;0;1;");
         worldCreator.createWorld();
-        currentGamesWorlds.add(worldCreator);
+        currentGamesWorlds.add(worldCreator.name());
     }
 
     public static void createWorld(Player player1, Player player2, GameModes gameMode){
@@ -26,34 +28,38 @@ public class WorldLoader {
         worldCreator.type(WorldType.FLAT);
         worldCreator.generatorSettings("2;0;1;");
         worldCreator.createWorld();
-        currentGamesWorlds.add(worldCreator);
+        currentGamesWorlds.add(worldCreator.name());
+        Bukkit.getConsoleSender().sendMessage(getPlayer(worldCreator.name(), 0));
+        Bukkit.getConsoleSender().sendMessage(getPlayer(worldCreator.name(), 1));
+        Bukkit.getConsoleSender().sendMessage(getGameMode(worldCreator.name()));
     }
 
     //SkyWars-ögkjdfsgölksdjgölskdjg_vs_fgmndsgjöfsjgsgösdölfg
-    public static String getPlayer(WorldCreator world, int player1or2){
-        String name = world.name();
-        String[] parts1 = name.split("-");
+    public static String getPlayer(String world, int player1or2){
+        String[] parts1 = world.split("-");
         String players = parts1[1];
         String[] parts2 = players.split("_vs_");
         return parts2[player1or2];
     }
 
-    public static String getGameMode(WorldCreator world){
-        String name = world.name();
-        String[] parts = name.split("-");
+    public static String getGameMode(String world){
+        String[] parts = world.split("-");
         return parts[0];
     }
 
     public static void deleteWorld(File path, String name) {
         unloadWorld(name);
         deleteWorldFiles(path);
+        currentGamesWorlds.remove(name);
+        Bukkit.getConsoleSender().sendMessage("Deleted World: " + name);
     }
 
     public static void shutdown(){
-        for(WorldCreator currentGames : currentGamesWorlds){
-            World world = Bukkit.getWorld(currentGames.name());
+        for(String currentGame : currentGamesWorlds){
+            World world = Bukkit.getWorld(currentGame);
             File filepath = world.getWorldFolder();
             deleteWorld(filepath, world.getName());
+            currentGamesWorlds.remove(currentGame);
         }
     }
 
@@ -72,7 +78,7 @@ public class WorldLoader {
     }
 
     public static void unloadWorld(String name) {
-        World world = Bukkit.getWorld(name);
+        world = Bukkit.getWorld(name);
         if(!world.equals(null)) {
             Bukkit.getServer().unloadWorld(world, true);
         }
